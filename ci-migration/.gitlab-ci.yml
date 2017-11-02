@@ -1,0 +1,34 @@
+stages:
+  - docker-build
+  - build
+  - deploy
+
+variables:
+  IMAGE_NAME: ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}
+  LATEST_IMAGE_NAME: ${CI_REGISTRY_IMAGE}:latest
+
+image: ${IMAGE_NAME}
+
+build:docker:
+  stage: docker-build
+  services:
+    - docker:dind
+  image: docker:latest
+  before_script:
+    - docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY}
+  script:
+    - docker pull ${LATEST_IMAGE_NAME} || true
+    - docker build --cache-from ${LATEST_IMAGE_NAME} -t ${IMAGE_NAME} -t ${LATEST_IMAGE_NAME} .
+    - docker push ${IMAGE_NAME}
+    - docker push ${LATEST_IMAGE_NAME}
+
+pages:
+  stage: build
+  script:
+    - reveal-md slides.md --scripts js/display-help.js --static public
+  artifacts:
+    paths:
+      - public
+    expire_in: 1d
+  only:
+    - master
