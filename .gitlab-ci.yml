@@ -1,0 +1,18 @@
+##
+# PAGES
+##
+
+image: node:latest
+
+pages:
+  stage: build
+  before_script:
+    - npm install --global reveal-md
+  script:
+    - reveal-md . --scripts js/display-help.js --static public
+  artifacts:
+    paths:
+      - public
+    expire_in: 1d
+  only:
+    - master
