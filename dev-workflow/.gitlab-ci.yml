@@ -1,0 +1,74 @@
+stages:
+  - build
+  - test
+  - deploy
+  - qa
+
+variables:
+  RUBY_VERSION: 2.4.1
+
+##
+# BUILD stage
+##
+
+compile:
+  stage: build
+  script:
+    - make compile
+  artifacts:
+    paths:
+      - output/
+    expire_in: 10 days
+
+##
+# TEST stage
+##
+
+test:
+  stage: test
+  script:
+    - echo $RUBY_VERSION
+    - make test
+
+lint:
+  stage: test
+  script:
+    - make style-checking
+  except:
+    - branches@pbonaud/dev-workflow-slides
+
+security:
+  stage: test
+  script:
+    - make scan-flaws
+
+##
+# DEPLOY stage
+##
+
+deploy:integration:
+  stage: deploy
+  script:
+    - make deploy env="${CI_BUILD_REF_NAME}"
+  only:
+    - dev@pbonaud/dev-workflow-slides
+    - master@pbonaud/dev-workflow-slides
+
+deploy:production:
+  when: "manual" # <= manual job
+  stage: deploy
+  script:
+    - make deploy env="production"
+  only:
+    - master@pbonaud/dev-workflow-slides
+
+##
+# QA stage
+##
+
+performance:
+  stage: qa
+  script:
+    - make client-performance target=https://dev.test.trainline.eu/
+  only:
+    - dev@pbonaud/dev-workflow-slides
