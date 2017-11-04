@@ -9,10 +9,12 @@ pages:
   before_script:
     - npm install --global reveal-md
   script:
-    - reveal-md . --scripts js/display-help.js --static public
+    - for file in **/slides.md; do
+        reveal-md "${file}" --scripts public/js/display-help.js --static public/;
+        mv public/index.html public/"${file%/*}".html ;
+      done
+    - mv public/listing.html public/index.html
   artifacts:
     paths:
       - public
     expire_in: 1d
-  only:
-    - master
