@@ -3,11 +3,11 @@ title: To what extent can automation help with development practices?
 separator: <!--s-->
 verticalSeparator: <!--v-->
 theme: ../theme/trainlineeu.css
-highlightTheme: solarized-light
-#highlightTheme: rainbow
+highlightTheme: monokai-sublime
 revealOptions:
   transition: 'fade'
   controls: false
+  math: ''
 ---
 
 <!--# A development workflow filled with automation-->
@@ -26,13 +26,13 @@ Note:
 
 ## Who am I?
 
-**⌨ + ⚙ + 🚴** = **Paul Bonaud**
+**⌨ + ⚙ + 🚴**
 
-⏸ Software Developer Connection Team
+⏸ Software Developer
 
-▶ Linux Infra Team & Paris Ops Team
+▶ Linux Infra & Ops
 
-*@paulr* on Slack
+🐦 **@paulRb_r**
 
 Note:
 
@@ -81,6 +81,8 @@ Beyond the troll though, I will share a list of words that can describe well our
 
 Note:
 - let's dive into the real subject
+- Usually once your project has other contributors it's a good idea to have a "workflow" in place ("proces" is too formal and sounds too static)
+- work - flow it's really a flow of work and the flow can move it's not static.
 - Generic workflow used in all applications developped in Paris (fronteds, backend apps, configuration management)
 
 
@@ -172,7 +174,7 @@ Note: Dug is about to implement his first feature in the 25kv Application \o/
 <!-- .slide: data-background="./images/dog.jpg" -->
 ## Dug the developer
 
-Working in the <i class="em em-25kv"></i> team
+Working in the **25kv** team
 
 
 <!--s-->
@@ -296,6 +298,11 @@ Note: before I describe how to configure a pipeline I need to introduce the tool
 <img src="./images/gitlab.svg" class="plain" style="height: 15%; width: 15%" />
 
 <!--v-->
+<!-- .slide: data-background="rgba(255,160,59,0.85)" -->
+
+### Open Source ❤️
+
+<!--v-->
 <!-- .slide: data-background="rgba(252,163,38,.8)" -->
 
 ## Gitlab
@@ -304,24 +311,36 @@ Note: before I describe how to configure a pipeline I need to introduce the tool
 * merge request
 * review
 * CI build pipelines
+* Artifacts
+* Docker registry
+* ...much more
 
 
 <!--s-->
-<!-- .slide: data-background="rgba(252,163,38,.8)" -->
+<!-- .slide: data-background="rgba(11,85,101,0.85)" -->
 
-## Gitlab<br>CI
+## Gitlab CI
 
 <img src="./images/gitlab.svg" class="plain" style="height: 15%; width: 15%" />
 
+Note:
+- Similar to Travis / Concourse...
+
+
 <!--v-->
-<!-- .slide: data-background="rgba(252,163,38,.8)" -->
+<!-- .slide: data-background="rgba(11,85,101,0.85)" -->
+
+### Open Source ❤️
+
+<!--v-->
+<!-- .slide: data-background="rgba(11,85,101,0.85)" -->
 
 ### `.gitlab-ci.yml`  file
 
 Note: Travis style, Jenkins also since `Jenkinsfile`
 
 <!--v-->
-<!-- .slide: data-background="rgba(252,163,38,.8)" -->
+<!-- .slide: data-background="rgba(11,85,101,0.85)" -->
 
 ### versioned within git
 
@@ -329,49 +348,40 @@ Note: You can make changes & propose MR on your pipeline process!
 You can review your pipeline process \o/
 
 <!--v-->
-<!-- .slide: data-background="rgba(252,163,38,.8)" -->
+<!-- .slide: data-background="rgba(11,85,101,0.85)" -->
 
 ### declarative
 
 <!--v-->
-<!-- .slide: data-background="rgba(252,163,38,.8)" -->
-
-### declarative
+<!-- .slide: data-background="rgba(33, 33, 33, .8)" -->
 
 ```yaml
 job1:
-  script: make compile
+  script: make build
 
 job2:
   script: make test
 ```
 
-<!--v-->
-<!-- .slide: data-background="rgba(252,163,38,.8)" -->
-
-### integrated
-
+Note: define "what" to do (as opposed to "how" to do it)
 
 <!--v-->
-<!-- .slide: data-background="rgba(252,163,38,.8)" -->
+<!-- .slide: data-background="rgba(11,85,101,0.85)" -->
 
 ### integrated
-
-<img src="./images/gitlab-mr.png"/>
-
-Note: The CI is completely integrated within the source code management UI. You can see build results within your MR. Within your project. Split by environment :)
 
 <!--s-->
+<!-- .slide: data-background="rgba(11,85,101,0.85)" -->
 
 ## Pipeline
 
 <!--v-->
+<!-- .slide: data-background="rgba(11,85,101,0.85)" -->
 
 ### 1 pipeline == n stages
 
 <!--v-->
-
-### 1 pipeline == n stages
+<!-- .slide: data-background="rgba(33, 33, 33, .8)" -->
 
 ```yaml
 stages:
@@ -381,12 +391,13 @@ stages:
 ```
 
 <!--v-->
+<!-- .slide: data-background="rgba(11,85,101,0.85)" -->
 
 ### 1 stage == n jobs
 
 <!--v-->
+<!-- .slide: data-background="rgba(33, 33, 33, .8)" -->
 
-### 1 stage == n jobs
 
 ```yaml
 job1-unit-test:
@@ -399,37 +410,18 @@ job2-acceptance-test:
 Note: What is important here is that all jobs within 1 stage can run in // on different runner instances
 
 <!--v-->
+<!-- .slide: data-background="rgba(11,85,101,0.85)" -->
 
 ### 1 pipeline == `jobs x stages`
 
 <!--v-->
+<!-- .slide: data-background="rgba(11,85,101,0.85)" -->
 
-### I.e.
-<img src="./images/gitlab-pipeline-ui.png" />
-
-Note:
-- A picture is worth thousands words
-- Pipeline retry button for *each* job!
-
-<!--v-->
-
-### I.e.
-<img src="./images/gitlab-pipeline-ui-failed-job.png" />
-
-<!--v-->
-
-### I.e.
-<img src="./images/gitlab-pipeline-ui-running-job.png" />
-
-<!--v-->
-
-### I.e.
-<img src="./images/gitlab-pipeline-ui.png" />
+<img   style="width: 50%;" class="plain"  src="./images/screenshots/mr-pipeline.png" />
 
 <!--s-->
-
-
 <!-- .slide: data-background="./images/dog.jpg" -->
+
 ## Remember Dug?
 
 <!--s-->
@@ -448,94 +440,164 @@ Note: Starting with his local changes, pushed directly to his repository in gitl
 He didn't even bother to run tests locally because he is really confident
 
 <!--v-->
-<!-- .slide: data-background="rgba(1,119,102,.8)" -->
+<!-- .slide: data-background="rgba(33, 33, 33, .8)" -->
 
 ##### `.gitlab-ci.yml`
 ```yaml
-compile:
+image: ruby:2.4
+```
+```yaml
+bundle:
   stage: build
-  tags: [ shell ]
   script:
-    - make compile
+    - bundle install --deployment
   artifacts:
-    paths:
-      - output/
-    expire_in: 10 days
+    paths: [ '.bundle/', 'vendor/' ]
+```
+```transparent
+test:
+  stage: test
+  script:
+    - bundle exec rake test
+```
+```transparent
+lint:
+  stage: test
+  script:
+    - bundle exec rubocop
 ```
 
 <!--v-->
-<!-- .slide: data-background="rgba(1,119,102,.8)" -->
+<!-- .slide: data-background="rgba(33, 33, 33, .8)" -->
 
 ##### `.gitlab-ci.yml`
+
+```none
+image: ruby:2.4
+```
+```none
+bundle:
+  stage: build
+  script:
+    - bundle install --deployment
+  artifacts:
+    paths: [ '.bundle/', 'vendor/' ]
+```
 ```yaml
 test:
   stage: test
-  tags: [ shell ]
   script:
-    - echo $RUBY_VERSION
-    - make test
+    - bundle exec rake test
+```
+```transparent
+lint:
+  stage: test
+  script:
+    - bundle exec rubocop
 ```
 
 <!--v-->
-<!-- .slide: data-background="rgba(1,119,102,.8)" -->
+<!-- .slide: data-background="rgba(33, 33, 33, .8)" -->
 
 ##### `.gitlab-ci.yml`
+
+```none
+image: ruby:2.4
+```
+```none
+bundle:
+  stage: build
+  script:
+    - bundle install --deployment
+  artifacts:
+    paths: [ '.bundle/', 'vendor/' ]
+```
+```none
+test:
+  stage: test
+  script:
+    - bundle exec rake test
+```
 ```yaml
 lint:
   stage: test
-  tags: [ shell ]
   script:
-    - make style-checking
+    - bundle exec rubocop
 ```
 
 Note: Ruby has a gem called Pronto
 
 <!--v-->
-<!-- .slide: data-background="rgba(1,119,102,.8)" -->
+<!-- .slide: data-background="rgba(33, 33, 33, .8)" -->
 
 ##### `.gitlab-ci.yml`
-```yaml
-lint:
-  stage: test
-  tags: [ shell ]
-  script:
-    - make style-checking
-  except:
-    - branches@"capitainetrain/25kv"
+
+
+```none
+image: ruby:2.4
 ```
-
-Note: Lint is important only on MRs!
-
-<!--v-->
-<!-- .slide: data-background="rgba(1,119,102,.8)" -->
-
-##### `.gitlab-ci.yml`
 ```yaml
+# …
+
 security:
   stage: test
-  tags: [ shell ]
   script:
-    - make scan-flaws
-
+    - bundle exec brakeman
+```
+```transparent
+test:
+  stage: test
+  script:
+    - bundle exec rake test
+```
+```transparent
+lint:
+  stage: test
+  script:
+    - bundle exec rubocop
 ```
 
-Note: Ruby has a gem called Brakeman as a security scanner
+<!--v-->
+<!-- .slide: data-background="rgba(33, 33, 33, .8)" -->
+
+##### `.gitlab-ci.yml`
+
+```none
+image: ruby:2.4
+```
+```none
+# …
+
+security:
+  stage: test
+  script:
+    - bundle exec brakeman
+```
+```yaml
+bundle-audit:
+  stage: test
+  script:
+    - bundle exec bundle-audit check --update
+```
+```transparent
+lint:
+  stage: test
+  script:
+    - bundle exec rubocop
+```
 
 <!--v-->
 <!-- .slide: data-background="rgba(1,119,102,.8)" -->
 
-<img style="width: 40%; height: 40%" src="./images/gitlab-mr-pipeline.png" />
+<img style="width: 50%;" class="plain" src="./images/screenshots/mr-failed-pipeline-2.png" />
 
 Note:
-- That's how it visually looks like in the UI.
-- Let's check the *test* job to see the logs
+- That's how it visually looks like in the UI
 
 <!--v-->
 <!-- .slide: data-background="rgba(1,119,102,.8)" -->
 
-<img style="width: 90%; height: 90%" src="./images/gitlab-test-log.png" />
-
-Note:
+<img style="width: 50%;" class="plain" src="./images/screenshots/mr-failed-pipeline.png" />
 
 <!--v-->
 <!-- .slide: data-background="rgba(1,119,102,.8)" -->
@@ -714,6 +776,21 @@ Note: Workflow didn't come in one day
 
 <!--v-->
 <!-- .slide: data-background="rgba(54, 166, 79,.8)" -->
+<img src="images/capitaine-logo-full.png" width="300px" class="plain" />
+
+<!--v-->
+<!-- .slide: data-background="rgba(54, 166, 79,.8)" -->
+
+<img src="images/captain-logo-full.png" width="300px" class="plain" />
+
+<!--v-->
+<!-- .slide: data-background="rgba(54, 166, 79,.8)" -->
+
+<img src="theme/images/trainline-logo-white-8f87ae08035d6750c1a5e836909ecd1a.svg" width="300px" class="plain" />
+
+
+<!--v-->
+<!-- .slide: data-background="rgba(54, 166, 79,.8)" -->
 
 ### mature
 
@@ -721,8 +798,6 @@ Note: a bit like cheese yep :)
 
 <!--v-->
 <!-- .slide: data-background="rgba(54, 166, 79,.8)" -->
-
-### mature
 
 <img src="./images/cheese.jpg" />
 
@@ -761,12 +836,7 @@ Note: constant changes happen to the pipeline. Merge requests, reviewed & approv
 
 Thank you!
 
-<!--s-->
 
 ## Questions?
 
-### References to get started now!
-
-* Gitlab@Trainline<br> <small>**https://gitlab.tools.trainline.eu/**</small>
-* `.gitlab-ci.yml` documentation<br> <small>**https://gitlab.com/help/ci/yaml/README.md**</small>
-* Slides<br> <small>**https://gitlab.tools.trainline.eu/pbonaud/dev-workflow-slides**</small>
+<small>Slides → https://polr.fr/ctdev</small>
