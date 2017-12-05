@@ -21,6 +21,12 @@ Note:
 - Talk about automation and specificaly about Gitlab-CI
 - Open for discussions: don't take everything for granted and writen in stone. Happy to adapt!
 
+<!--v-->
+<!-- .slide: data-background="no-repeat 98% 98%/14% url(images/capitaine-logo-full.png)" -->
+
+a.k.a
+# _**La méthode**_ de dev chez<br> _**Capitaine Train**_
+
 <!--s-->
 <!-- .slide: data-background="no-repeat 98% 98%/7% url(theme/images/trainline-logo-white-8f87ae08035d6750c1a5e836909ecd1a.svg)" -->
 
@@ -90,40 +96,40 @@ Note:
 <!-- .slide: data-background="rgba(1,119,102,.8)" -->
 ### Local changes
 
-<i class="em em-computer"></i>
+💻
 
 Note:
 
 <!--v-->
 <!-- .slide: data-background="rgba(1,119,102,.8)" -->
-### Pull Request | Merge Request
+### Pull Request · Merge Request
 
-<i class="em em-github"></i> | <i class="em em-gitlab"></i>
-
-<!--v-->
-<!-- .slide: data-background="rgba(1,119,102,.8)" -->
-### Review
-
-<i class="em em-green_heart"></i>
+<i class="em em-github"></i> · <i class="em em-gitlab"></i>
 
 <!--v-->
 <!-- .slide: data-background="rgba(1,119,102,.8)" -->
 ### Review
 
-<i class="em em-broken_heart"></i>
+💚
+
+<!--v-->
+<!-- .slide: data-background="rgba(1,119,102,.8)" -->
+### Review
+
+💔
 
 
 <!--v-->
 <!-- .slide: data-background="rgba(1,119,102,.8)" -->
 ### Review
 
-<i class="em em-green_heart"></i>
+💚
 
 <!--v-->
 <!-- .slide: data-background="rgba(1,119,102,.8)" -->
 ### Integration testing
 
-<i class="em em-ok_noc"></i>
+✅
 
 <!--v-->
 <!-- .slide: data-background="rgba(1,119,102,.8)" -->
@@ -135,30 +141,30 @@ Note:
 <!-- .slide: data-background="rgba(1,119,102,.8)" -->
 ### Ship it to Production
 
-<i class="em em-rocket"></i>
+🚀
 
 <!--s-->
 <!-- .slide: data-background="rgba(1,119,102,.8)" -->
 
 <!-- ### TL; DR
 
-* Local changes <i class="em em-computer"></i>
+* Local changes 💻
 * Pull Request / Merge Request <i class="em em-gitlab"></i>
-* Review <i class="em em-green_heart"></i>
-* Integration testing <i class="em em-ok_noc"></i>
+* Review 💚
+* Integration testing ✅
 * Merge Master <i class="em em-merge"></i>
-* Ship <i class="em em-rocket"></i>
+* Ship 🚀
 
 -->
 
 ### TL; DL
 
-* <i class="em em-computer"></i> Local changes
+* 💻 Local changes
 * <i class="em em-gitlab"></i> Pull Request / Merge Request
-* <i class="em em-green_heart"></i> Review
-* <i class="em em-ok_noc"></i> Integration testing
+* 💚 Review
+* ✅ Integration testing
 * <i class="em em-merge"></i> Merge Master
-* <i class="em em-rocket"></i> Ship
+* 🚀 Ship
 Note: now we know the workflow, let's help Dug
 <!--s-->
 
@@ -207,27 +213,27 @@ Note: That's great because our development workflow is tighly coupled to our Git
 <!-- .slide: data-background="rgba(1,119,102,.8)" -->
 
 <img src="./images/fork.svg" />
-<i class="em em-computer"></i> Local changes
+💻 Local changes
 
 <!--v-->
 <!-- .slide: data-background="rgba(1,119,102,.8)" -->
 <img src="./images/dev1-.svg" />
-<i class="em em-computer"></i> Local changes
+💻 Local changes
 
 <!--v-->
 <!-- .slide: data-background="rgba(1,119,102,.8)" -->
 <img src="./images/dev2-.svg" />
-<i class="em em-computer"></i> Local changes
+💻 Local changes
 
 <!--v-->
 <!-- .slide: data-background="rgba(1,119,102,.8)" -->
 <img src="./images/MR.svg" />
-<i class="em em-gitlab"></i> + <i class="em em-green_heart"></i> Merge Request & Review
+<i class="em em-gitlab"></i> + 💚 Merge Request & Review
 
 <!--v-->
 <!-- .slide: data-background="rgba(1,119,102,.8)" -->
 <img src="./images/integrated.svg" />
-<i class="em em-ok_noc"></i> Integration testing
+✅ Integration testing
 
 Note: "dev" branch is alive, dug has added some commits but probably other pull requests will be integrated
 
@@ -243,7 +249,7 @@ Note:
 <!--v-->
 <!-- .slide: data-background="rgba(1,119,102,.8)" -->
 <img src="./images/dev-completed.svg" />
-<i class="em em-rocket"></i> Ship to Production
+🚀 Ship to Production
 
 <!--s-->
 <!-- .slide: data-background="rgba(1,119,102,.8)" -->
@@ -446,6 +452,34 @@ He didn't even bother to run tests locally because he is really confident
 ```yaml
 image: ruby:2.4
 ```
+```transparent
+bundle:
+  stage: build
+  script:
+    - bundle install --deployment
+  artifacts:
+    paths: [ '.bundle/', 'vendor/' ]
+```
+```transparent
+test:
+  stage: test
+  script:
+    - bundle exec rake test
+```
+```transparent
+lint:
+  stage: test
+  script:
+    - bundle exec rubocop
+```
+
+<!--v-->
+<!-- .slide: data-background="rgba(33, 33, 33, .8)" -->
+
+##### `.gitlab-ci.yml`
+```none
+image: ruby:2.4
+```
 ```yaml
 bundle:
   stage: build
@@ -589,6 +623,13 @@ lint:
 <!--v-->
 <!-- .slide: data-background="rgba(1,119,102,.8)" -->
 
+<img src="./images/pipelines-mr.svg" />
+<i class="em em-gitlab"></i> + 💚 Merge Request & Review
+
+
+<!--v-->
+<!-- .slide: data-background="rgba(1,119,102,.8)" -->
+
 <img style="width: 50%;" class="plain" src="./images/screenshots/mr-failed-pipeline-2.png" />
 
 Note:
@@ -604,36 +645,60 @@ Note:
 
 <img style="width: 70%; height: 70%" src="./images/gitlab-discussion.png" />
 
-Review <i class="em em-green_heart"></i>
+Review 💚
+
+<!--v-->
+<!-- .slide: data-background="rgba(1,119,102,.8)" -->
+
+<img style="width: 50%;" class="plain" src="./images/screenshots/mr-succeeded-pipeline.png" />
 
 <!--v-->
 <!-- .slide: data-background="rgba(1,119,102,.8)" -->
 
 <img src="./images/pipelines-integration.svg" />
-<i class="em em-ok_noc"></i>
+✅
 
 Note: On top of having the `build` stage + `test` stage that we already defined. We only need a deploy job
 
 <!--v-->
-<!-- .slide: data-background="rgba(1,119,102,.8)" -->
+<!-- .slide: data-background="rgba(33, 33, 33, .8)" -->
 
 ##### `.gitlab-ci.yml`
+
+```none
+image: ruby:2.4
+```
 ```yaml
 deploy:integration:
   stage: deploy
-  tags: [ shell, deploy-runner ]
   script:
-    - make deploy env=dev
+    - bundle exec rake deploy env=${CI_COMMIT_REF_NAME}
   only:
-    - dev@"capitainetrain/25kv"
+    - dev
+```
+```transparent
+bundle-audit:
+  stage: test
+  script:
+    - bundle exec bundle-audit check --update
+```
+```transparent
+lint:
+  stage: test
+  script:
+    - bundle exec rubocop
 ```
 
 Note: We don't have environment per MR. That's why we limit to `only` `dev`.
 
 <!--v-->
-<!-- .slide: data-background="rgba(1,119,102,.8)" -->
+<!-- .slide: data-background="rgba(33, 33, 33, .8)" -->
 
 ##### `.gitlab-ci.yml`
+
+```none
+image: ruby:2.4
+```
 ```yaml
 stages:
   - build
@@ -641,11 +706,28 @@ stages:
   - deploy
   - # Something missing?
 ```
+```transparent
+#
+bundle-audit:
+  stage: test
+  script:
+    - bundle exec bundle-audit check --update
+```
+```transparent
+lint:
+  stage: test
+  script:
+    - bundle exec rubocop
+```
 
 <!--v-->
-<!-- .slide: data-background="rgba(1,119,102,.8)" -->
+<!-- .slide: data-background="rgba(33, 33, 33, .8)" -->
 
 ##### `.gitlab-ci.yml`
+
+```none
+image: ruby:2.4
+```
 ```yaml
 stages:
   - build
@@ -653,25 +735,53 @@ stages:
   - deploy
   - qa
 ```
+```transparent
+#
+bundle-audit:
+  stage: test
+  script:
+    - bundle exec bundle-audit check --update
+```
+```transparent
+lint:
+  stage: test
+  script:
+    - bundle exec rubocop
+```
 
 <!--v-->
-<!-- .slide: data-background="rgba(1,119,102,.8)" -->
+<!-- .slide: data-background="rgba(33, 33, 33, .8)" -->
 
 ##### `.gitlab-ci.yml`
+
+```none
+image: ruby:2.4
+```
+```none
+deploy:integration:
+  stage: deploy
+  script:
+    - bundle exec rake deploy env=${CI_COMMIT_REF_NAME}
+  only:
+    - dev
+```
 ```yaml
 performance:
   stage: qa
-  tags: [ ui ]
   script:
-    - make client-performance target=https://dev.test.trainline.eu/
+    - bundle exec rake performance \
+      target="https://${CI_COMMIT_REF_NAME}.test.trainline.eu/"
   only:
-    - dev@"capitainetrain/25kv"
+    - dev
+```
+```transparent
+lint:
 ```
 
 <!--v-->
 <!-- .slide: data-background="rgba(1,119,102,.8)" -->
 
-<img src="./images/gitlab-pipeline-dev.png" />
+<img src="./images/pipeline-full-dev.png" />
 
 <!--v-->
 <!-- .slide: data-background="rgba(1,119,102,.8)" -->
@@ -694,57 +804,106 @@ Manual script to launch in the project.
 <!-- .slide: data-background="rgba(1,119,102,.8)" -->
 
 <img src="./images/pipelines-ship.svg" />
-<i class="em em-rocket"></i>
+🚀
 
 Note: Our pipeline for the `master` environment is almost done:
 build, test and dpeloy stages have already been defined. Remember?
 
 Well not quite as we limited the deployment to "dev"
 
+
 <!--v-->
-<!-- .slide: data-background="rgba(1,119,102,.8)" -->
+<!-- .slide: data-background="rgba(33, 33, 33, .8)" -->
 
 ##### `.gitlab-ci.yml`
+
+```none
+image: ruby:2.4
+```
 ```yaml
 deploy:integration:
   stage: deploy
-  tags: [ shell, deploy-runner ]
   script:
-    - make deploy env="dev"
+    - bundle exec rake deploy env=${CI_COMMIT_REF_NAME}
   only:
-    - dev@"capitainetrain/25kv"
+    - dev
+```
+```transparent
+bundle-audit:
+  stage: test
+  script:
+    - bundle exec bundle-audit check --update
+```
+```transparent
+lint:
+  stage: test
+  script:
+  - bundle exec rubocop
+  #
 ```
 
 <!--v-->
-<!-- .slide: data-background="rgba(1,119,102,.8)" -->
+<!-- .slide: data-background="rgba(33, 33, 33, .8)" -->
 
 ##### `.gitlab-ci.yml`
+
+```none
+image: ruby:2.4
+```
 ```yaml
 deploy:integration:
   stage: deploy
-  tags: [ shell, deploy-runner ]
   script:
-    - make deploy env="${CI_BUILD_REF_NAME}"
+    - bundle exec rake deploy env=${CI_COMMIT_REF_NAME}
   only:
-    - dev@"capitainetrain/25kv"
-    - master@"capitainetrain/25kv"
+    - dev
+    - master
+```
+```transparent
+  stage: test
+  script:
+    - bundle exec bundle-audit check --update
+```
+```transparent
+lint:
+  stage: test
+  script:
+  - bundle exec rubocop
+  #
 ```
 
 Note: Last missing part for the last pipeline to production.. is the definition of the production deployment :)
 
+
 <!--v-->
-<!-- .slide: data-background="rgba(1,119,102,.8)" -->
+<!-- .slide: data-background="rgba(33, 33, 33, .8)" -->
 
 ##### `.gitlab-ci.yml`
+
+```none
+image: ruby:2.4
+```
+```none
+deploy:integration:
+  stage: deploy
+  script:
+    - bundle exec rake deploy env=${CI_COMMIT_REF_NAME}
+  only:
+    - dev
+    - master
+```
 ```yaml
 deploy:production:
-  when: "manual" # <= manual job
   stage: deploy
-  tags: [ shell, deploy-runner ]
   script:
-    - make deploy env="production"
+    - bundle exec rake deploy env=production
   only:
-    - master@"capitainetrain/25kv"
+    - master
+  when: manual # ← Manual button to trigger Job
+
+```
+```transparent
+#
 ```
 
 <!--v-->
@@ -758,7 +917,7 @@ Note: Once all the `master` commit pipeline has succeeded, we get a notification
 <!--v-->
 <!-- .slide: data-background="rgba(1,119,102,.8)" -->
 
-<img src="./images/gitlab-pipeline-master.png" />
+<img src="./images/pipeline-full-master.png" />
 
 Note: Rollback are free and directly visible in your project's page
 
@@ -817,14 +976,6 @@ Note: constant changes happen to the pipeline. Merge requests, reviewed & approv
 <!--v-->
 <!-- .slide: data-background="rgba(54, 166, 79,.8)" -->
 
-### alive
-
-<img src="./images/gitlab-issue.png" />
-
-
-<!--v-->
-<!-- .slide: data-background="rgba(54, 166, 79,.8)" -->
-
 ### builds "as code"
 
 <!--v-->
@@ -839,4 +990,5 @@ Thank you!
 
 ## Questions?
 
-<small>Slides → https://polr.fr/ctdev</small>
+* <small>Slides   → https://paulrbr.gitlab.io/talks/dev-workflow.html</small>
+* <small>Demo CI → https://gitlab.com/paulrbr/ruby-ci</small>
