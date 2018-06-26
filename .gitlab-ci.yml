@@ -6,6 +6,7 @@ image: node:latest
 
 pages:
   stage: build
+  only: [ master@paulrbr/talks ]
   before_script:
     - npm install --global reveal-md
   script:
